@@ -10,23 +10,31 @@ document.addEventListener("DOMContentLoaded", () => {
     doodler.style.bottom = doodlerBottom + 'px'
     
     const moveRight = () => {
-        doodlerLeft +=25
-        doodler.style.left = doodlerLeft + 'px'
+        if(doodlerLeft < 350){
+            doodlerLeft +=25
+            doodler.style.left = doodlerLeft + 'px'
+        }
     }
     
     const moveLeft = () => {
-        doodlerLeft -=25
-        doodler.style.left = doodlerLeft + 'px'
+        if(doodlerLeft > 0){
+            doodlerLeft -=25
+            doodler.style.left = doodlerLeft + 'px'
+        }
     }
 
     const moveTop = () => {
-        doodlerBottom +=25
-        doodler.style.bottom = doodlerBottom + 'px'
+        if(doodlerBottom < 550){
+            doodlerBottom +=25
+            doodler.style.bottom = doodlerBottom + 'px'
+        }
     }
 
     const moveDown = () => {
-        doodlerBottom -=25
-        doodler.style.bottom = doodlerBottom + 'px'
+        if(doodlerBottom > 0){
+            doodlerBottom -=25
+            doodler.style.bottom = doodlerBottom + 'px'
+        }
     }
 
     function control(e) {
