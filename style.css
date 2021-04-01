@@ -4,3 +4,9 @@
     height: 600px;
     position: relative;
 }
+.doodler{
+    width: 60px;
+    height: 60px;
+    background-color: rebeccapurple;
+    position: absolute;
+}
