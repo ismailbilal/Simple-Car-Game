@@ -14,6 +14,7 @@ main{
     height: 610px;
     position: absolute;
     z-index: 1;
+    text-align: center;
 }
 .doodler{
     width: 60px;
@@ -25,4 +26,14 @@ main{
 .obstacle{
     background-color: rgb(17, 17, 17);
     position: absolute;
+}
+.score{
+    font-size: 120%;
+    color: white;
+    position: absolute;
+    left: 10px;
+}
+.game-over{
+   position: absolute;
+    top: 280px;
 }
