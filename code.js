@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let doodlerBottom = 275
     let obstacleCount = 2
     let obstacles = []
+    let score = 0
+    let speed = 2.3
     
     class Obstacle {
         constructor(newOpsBottom){
@@ -31,9 +33,27 @@ document.addEventListener("DOMContentLoaded", () => {
             let newOpsBottom = 100 + i * obsGab
             let newobstacle = new Obstacle (newOpsBottom)
             obstacles.push(newobstacle)
-
-            console.log(obstacles)
         }
+    }
+
+    const moveObstacles = () => {
+        obstacles.forEach(obstacle => {
+            obstacle.bottom -= speed
+            let visual = obstacle.visual
+            visual.style.bottom = obstacle.bottom + 'px'
+
+            if(obstacle.bottom < 5) {
+                let firstObstacle = obstacles[0].visual
+                firstObstacle.classList.remove("obstacle")
+                obstacles.shift()
+                score++
+                if(score % 10 === 0 ) speed *= 1.07
+                console.log(score)
+                console.log(speed)
+                let newobstacle = new Obstacle (600)
+                obstacles.push(newobstacle)
+            }
+        })
     }
 
     const createDoodler = () => {
@@ -86,8 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const start = () => {
-        createDoodler()
         createObstacles()
+        createDoodler()
+        setInterval(moveObstacles, 30)
         document.addEventListener("keyup", control)
     }
     
