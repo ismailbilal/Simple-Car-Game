@@ -1,14 +1,26 @@
+main{
+    position: relative;
+}
+.top{
+    background-color: brown;
+    z-index: 3;
+    position: absolute;
+    width: 410px;
+    height: 80px;
+}
 .grid{
     background-color: grey;
     width: 410px;
     height: 610px;
-    position: relative;
+    position: absolute;
+    z-index: 1;
 }
 .doodler{
     width: 60px;
     height: 60px;
     background-color: rebeccapurple;
     position: absolute;
+    z-index: 2;
 }
 .obstacle{
     background-color: rgb(17, 17, 17);
