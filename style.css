@@ -10,3 +10,7 @@
     background-color: rebeccapurple;
     position: absolute;
 }
+.obstacle{
+    background-color: rgb(17, 17, 17);
+    position: absolute;
+}
