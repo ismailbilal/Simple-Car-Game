@@ -2,13 +2,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector(".grid")
     const doodler = document.createElement("div")
 
-    doodler.classList.add("doodler")
-    grid.appendChild(doodler)
     let doodlerLeft = 175
     let doodlerBottom = 275
-    doodler.style.left = doodlerLeft + 'px'
-    doodler.style.bottom = doodlerBottom + 'px'
+    let obstacleCount = 2
+    let obstacles = []
     
+    class Obstacle {
+        constructor(newOpsBottom){
+            let width = 30 + Math.random() * 50
+            this.left =  Math.random() * 340
+            this.bottom = newOpsBottom
+            this.visual = document.createElement("div")
+
+            const visual = this.visual
+            visual.style.left = this.left + 'px'
+            visual.style.bottom = this.bottom + 'px'
+            visual.style.width = width + 'px'
+            visual.style.height = width + 'px'
+            visual.classList.add("obstacle")
+
+            grid.appendChild(visual)
+        }
+    }
+
+    const createObstacles = () => {
+        for(let i = 0; i<obstacleCount; i++){
+            let obsGab = 610 / obstacleCount
+            let newOpsBottom = 100 + i * obsGab
+            let newobstacle = new Obstacle (newOpsBottom)
+            obstacles.push(newobstacle)
+
+            console.log(obstacles)
+        }
+    }
+
+    const createDoodler = () => {
+        grid.appendChild(doodler)
+        doodler.classList.add("doodler")
+        doodler.style.left = doodlerLeft + 'px'
+        doodler.style.bottom = doodlerBottom + 'px'
+    }
+
     const moveRight = () => {
         if(doodlerLeft < 350){
             doodlerLeft +=25
@@ -37,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function control(e) {
+    const control = (e) => {
         if(e.key === 'ArrowLeft') {
           moveLeft()
         } else if (e.key === 'ArrowRight') {
@@ -51,5 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(doodlerBottom)
     }
 
-    document.addEventListener("keyup", control)
+    const start = () => {
+        createDoodler()
+        createObstacles()
+        document.addEventListener("keyup", control)
+    }
+    
+    start()
 })
