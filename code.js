@@ -1,6 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector(".grid")
     const doodler = document.createElement("div")
+    const top = document.querySelector(".top")
+
+    let scoreViewer = document.createElement("h3")
+    let scoreCount = document.createElement("em")
+    scoreViewer.innerHTML = "score : "
+    scoreViewer.appendChild(scoreCount)
+    top.appendChild(scoreViewer)
+    scoreViewer.classList.add("score")
+
+    let game_Over = document.createElement("h1")
+    game_Over.innerHTML = "GAME OVER"
+    game_Over.classList.add("game-over")
 
     let doodlerLeft = 175
     let doodlerBottom = 275
@@ -8,12 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let obstacles = []
     let score = 0
     let speed = 2.3
+    let isGameOver = false
+    let movingTimer
     
     class Obstacle {
         constructor(newOpsBottom){
             let width = 30 + Math.random() * 50
             this.left =  Math.random() * 340
             this.bottom = newOpsBottom
+            this.width = width
             this.visual = document.createElement("div")
 
             const visual = this.visual
@@ -42,15 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
             let visual = obstacle.visual
             visual.style.bottom = obstacle.bottom + 'px'
 
+            if(
+                obstacle.bottom <= doodlerBottom + 60 &&
+                obstacle.bottom + obstacle.width >= doodlerBottom &&
+                obstacle.left <= doodlerLeft + 60 &&
+                obstacle.left + obstacle.width >= doodlerLeft
+            )gameOver()
+
             if(obstacle.bottom < 5) {
                 let firstObstacle = obstacles[0].visual
                 firstObstacle.classList.remove("obstacle")
                 obstacles.shift()
                 score++
-                if(score % 10 === 0 ) speed *= 1.07
+                scoreCount.innerHTML = score
+                if(score % 10 === 0 ) speed *= 1.09
                 console.log(score)
                 console.log(speed)
-                let newobstacle = new Obstacle (600)
+                let newobstacle = new Obstacle (530)
                 obstacles.push(newobstacle)
             }
         })
@@ -101,15 +124,26 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (e.key === 'ArrowDown') {
             moveDown()
         }
-        console.log(doodlerLeft)
-        console.log(doodlerBottom)
+    }
+
+    const gameOver = () => {
+        isGameOver = true
+        clearInterval(movingTimer)
+        while (grid.firstChild) {
+          console.log('remove')
+          grid.removeChild(grid.firstChild)
+        }
+        scoreCount.innerHTML = score
+        grid.appendChild(game_Over)
     }
 
     const start = () => {
-        createObstacles()
-        createDoodler()
-        setInterval(moveObstacles, 30)
-        document.addEventListener("keyup", control)
+        if(!isGameOver){
+            createObstacles()
+            createDoodler()
+            movingTimer = setInterval(moveObstacles, 30)
+            document.addEventListener("keyup", control)
+        }
     }
     
     start()
