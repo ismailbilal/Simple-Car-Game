@@ -9,7 +9,7 @@ main{
     height: 80px;
 }
 .grid{
-    background-color: grey;
+    background-color: rgb(173, 173, 173);
     width: 410px;
     height: 610px;
     position: absolute;
@@ -19,12 +19,12 @@ main{
 .doodler{
     width: 60px;
     height: 60px;
-    background-color: rebeccapurple;
+    background-image: url("./images/whitecar.jpg");
     position: absolute;
     z-index: 2;
 }
 .obstacle{
-    background-color: rgb(17, 17, 17);
+    background-color: rgb(21, 182, 0);
     position: absolute;
 }
 .score{
@@ -35,5 +35,8 @@ main{
 }
 .game-over{
    position: absolute;
-    top: 280px;
+   font-size: 270%;
+    top: 250px;
+    left: 0px;
+    width:410px;
 }
