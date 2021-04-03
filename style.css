@@ -1,5 +1,6 @@
 main{
     position: relative;
+    top: 17px;
 }
 .top{
     background-color: brown;
@@ -9,7 +10,8 @@ main{
     height: 80px;
 }
 .grid{
-    background-color: rgb(173, 173, 173);
+    background-image: url("./images/road.jpg");
+    background-size:408px 610px;
     width: 410px;
     height: 610px;
     position: absolute;
@@ -17,14 +19,18 @@ main{
     text-align: center;
 }
 .doodler{
-    width: 60px;
-    height: 60px;
-    background-image: url("./images/whitecar.jpg");
+    width: 70px;
+    height: 85px;
+    background-image: url("./images/redCar.png");
+    background-size: 70px 85px;
     position: absolute;
     z-index: 2;
 }
 .obstacle{
-    background-color: rgb(21, 182, 0);
+    width: 70px;
+    height: 85px;
+    background-image: url("./images/yellowCar.png");
+    background-size: 70px 85px;
     position: absolute;
 }
 .score{
@@ -39,4 +45,5 @@ main{
     top: 250px;
     left: 0px;
     width:410px;
+    text-shadow: white 0px 0px 4px;
 }

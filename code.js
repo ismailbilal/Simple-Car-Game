@@ -6,9 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreViewer = document.createElement("h3")
     const scoreCount = document.createElement("em")
 
-    let doodlerLeft = 175
-    let doodlerBottom = 275
+    let doodlerLeft = 183
+    let doodlerBottom = 30
+    let doodlerWidth = 70
+    let doodlerHieght = 85
     let obstacleCount = 2
+
+    let obstacleWidth = 70
+    let obstacleHieght = 85
+
     let obstacles = []
     let score = 0
     let speed = 2.4
@@ -17,17 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
     class Obstacle {
         constructor(newOpsBottom){
-            let width = 30 + Math.random() * 50
-            this.left =  Math.random() * 340
+            this.left =  58 + Math.random() * 233
             this.bottom = newOpsBottom
-            this.width = width
             this.visual = document.createElement("div")
 
             const visual = this.visual
             visual.style.left = this.left + 'px'
             visual.style.bottom = this.bottom + 'px'
-            visual.style.width = width + 'px'
-            visual.style.height = width + 'px'
             visual.classList.add("obstacle")
 
             grid.appendChild(visual)
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const createObstacles = () => {
         for(let i = 0; i<obstacleCount; i++){
             let obsGab = 610 / obstacleCount
-            let newOpsBottom = 100 + i * obsGab
+            let newOpsBottom = 200 + i * obsGab
             let newobstacle = new Obstacle (newOpsBottom)
             obstacles.push(newobstacle)
         }
@@ -50,13 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
             visual.style.bottom = obstacle.bottom + 'px'
 
             if(
-                obstacle.bottom <= doodlerBottom + 60 &&
-                obstacle.bottom + obstacle.width >= doodlerBottom &&
-                obstacle.left <= doodlerLeft + 60 &&
-                obstacle.left + obstacle.width >= doodlerLeft
+                obstacle.bottom <= doodlerBottom + doodlerHieght &&
+                obstacle.bottom + obstacleHieght >= doodlerBottom &&
+                obstacle.left <= doodlerLeft + doodlerWidth &&
+                obstacle.left + obstacleWidth >= doodlerLeft
             )gameOver()
 
-            if(obstacle.bottom < 5) {
+            if(obstacle.bottom < speed) {
                 let firstObstacle = obstacles[0].visual
                 firstObstacle.classList.remove("obstacle")
                 obstacles.shift()
@@ -79,28 +81,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const moveRight = () => {
-        if(doodlerLeft < 350){
+        if(doodlerLeft < 283){
             doodlerLeft +=25
             doodler.style.left = doodlerLeft + 'px'
         }
     }
     
     const moveLeft = () => {
-        if(doodlerLeft > 0){
+        if(doodlerLeft > 58){
             doodlerLeft -=25
             doodler.style.left = doodlerLeft + 'px'
         }
     }
 
     const moveTop = () => {
-        if(doodlerBottom < 550){
+        if(doodlerBottom < 430){
             doodlerBottom +=25
             doodler.style.bottom = doodlerBottom + 'px'
         }
     }
 
     const moveDown = () => {
-        if(doodlerBottom > 0){
+        if(doodlerBottom > 25){
             doodlerBottom -=25
             doodler.style.bottom = doodlerBottom + 'px'
         }
@@ -116,6 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (e.key === 'ArrowDown') {
             moveDown()
         }
+
+        console.log(doodlerBottom)
     }
 
     const writeGameOver = () => {
