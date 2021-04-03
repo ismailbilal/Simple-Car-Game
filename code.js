@@ -2,24 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.querySelector(".grid")
     const doodler = document.createElement("div")
     const top = document.querySelector(".top")
-
-    let scoreViewer = document.createElement("h3")
-    let scoreCount = document.createElement("em")
-    scoreViewer.innerHTML = "score : "
-    scoreViewer.appendChild(scoreCount)
-    top.appendChild(scoreViewer)
-    scoreViewer.classList.add("score")
-
-    let game_Over = document.createElement("h1")
-    game_Over.innerHTML = "GAME OVER"
-    game_Over.classList.add("game-over")
+    const game_Over = document.createElement("h1")
+    const scoreViewer = document.createElement("h3")
+    const scoreCount = document.createElement("em")
 
     let doodlerLeft = 175
     let doodlerBottom = 275
     let obstacleCount = 2
     let obstacles = []
     let score = 0
-    let speed = 2.3
+    let speed = 2.4
     let isGameOver = false
     let movingTimer
     
@@ -126,6 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    const writeGameOver = () => {
+        game_Over.innerHTML = "GAME OVER"
+        game_Over.classList.add("game-over")
+        grid.appendChild(game_Over)
+    }
+
     const gameOver = () => {
         isGameOver = true
         clearInterval(movingTimer)
@@ -133,14 +131,21 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log('remove')
           grid.removeChild(grid.firstChild)
         }
-        scoreCount.innerHTML = score
-        grid.appendChild(game_Over)
+        writeGameOver()
+    }
+
+    const writeScore = () => {
+        scoreViewer.innerHTML = "score : "
+        scoreViewer.appendChild(scoreCount)
+        top.appendChild(scoreViewer)
+        scoreViewer.classList.add("score")
     }
 
     const start = () => {
         if(!isGameOver){
             createObstacles()
             createDoodler()
+            writeScore()
             movingTimer = setInterval(moveObstacles, 30)
             document.addEventListener("keyup", control)
         }
